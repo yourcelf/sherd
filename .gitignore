@@ -1,0 +1,6 @@
+document_root/*
+*.pyc
+*.swp
+settings.py
+nohup.out
+pip-log.txt

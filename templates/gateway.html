@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <script type='text/javascript'>
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('noscript').style.display = 'none';
+            var mirrors = [
+                {comma_separated_mirrors}
+            ];
+            var sherdTimeout;
+            function loadSherd() {{
+                var r = Math.floor(Math.random() * mirrors.length);
+                var s = document.createElement("script");
+                s.src = mirrors[r] + "/static/sherd.js";
+                document.getElementsByTagName("head")[0].appendChild(s);
+                sherdTimeout = window.setTimeout(loadMirror, 2000);
+            }}
+        </script>
+    </head>
+    <body>
+        <noscript>
+            <div id='noscript'>
+                    To view this site as intended, you must use a browser that
+                    supports javascript.  If you wish to view this site in a
+                    degraded form without javascript, please try one of the
+                    following mirrors:
+                <ul>
+                    {mirror_li_links}
+                </ul>
+            </div>
+        </noscript>
+        <div id='loading' style='display: none;'>
+            Loading...
+        </div>
+        <script type='text/javascript'>
+            loadMirror();
+        </script>
+    </body>
+</html>
