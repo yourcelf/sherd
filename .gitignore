@@ -1,6 +1,5 @@
 document_root/*
+srvr/*
+mirrors.txt
 *.pyc
 *.swp
-settings.py
-nohup.out
-pip-log.txt

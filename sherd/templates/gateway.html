@@ -2,21 +2,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <script type='text/javascript'>
-            document.getElementById('loading').style.display = 'block';
-            document.getElementById('noscript').style.display = 'none';
-            var mirrors = [
-                {comma_separated_mirrors}
-            ];
-            var sherdTimeout;
-            function loadSherd() {{
-                var r = Math.floor(Math.random() * mirrors.length);
-                var s = document.createElement("script");
-                s.src = mirrors[r] + "/static/sherd.js";
-                document.getElementsByTagName("head")[0].appendChild(s);
-                sherdTimeout = window.setTimeout(loadMirror, 2000);
-            }}
-        </script>
     </head>
     <body>
         <noscript>
@@ -34,7 +19,19 @@
             Loading...
         </div>
         <script type='text/javascript'>
-            loadMirror();
+            var sherdMirrors = [
+                {comma_separated_mirrors}
+            ];
+            var sherdTimeout;
+            function loadSherd() {{
+                var r = Math.floor(Math.random() * sherdMirrors.length);
+                var s = document.createElement("script");
+                s.src = sherdMirrors[r] + "/sherd.js";
+                document.getElementsByTagName("head")[0].appendChild(s);
+                sherdTimeout = window.setTimeout(loadSherd, 2000);
+            }}
+            loadSherd();
+            document.getElementById('loading').style.display = 'block';
         </script>
     </body>
 </html>

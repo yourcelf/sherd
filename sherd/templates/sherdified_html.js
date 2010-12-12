@@ -1,0 +1,1 @@
+sherd.load("{filename}", "{html}");
