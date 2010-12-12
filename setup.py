@@ -5,9 +5,7 @@ import os
 root = os.path.abspath(os.path.dirname(__file__))
 os.chdir(root)
 
-master_file = open(os.path.join(root, ".git", "refs", "heads", "master"))
-VERSION = '0.1.git-' + master_file.read().strip()
-master_file.close()
+VERSION = '0.1'
 
 # Make data go to the right place.
 # http://groups.google.com/group/comp.lang.python/browse_thread/thread/35ec7b2fed36eaec/2105ee4d9e8042cb
@@ -68,7 +66,7 @@ output directory, and a text file with a list of mirrors (one per line):
     url="http://github.com/yourcelf/grocktx",
     license="MIT License",
     platforms=["any"],
-    packages=['grocktx'],
+    packages=['sherd'],
     data_files=[(data_dir, data)],
     classifiers=[
         "Development Status :: 3 - Alpha",
@@ -80,5 +78,5 @@ output directory, and a text file with a list of mirrors (one per line):
         "Programming Language :: Python",
         "Programming Language :: JavaScript",
     ],
-    include_package_data=True,
+    scripts=['scripts/sherd'],
 )

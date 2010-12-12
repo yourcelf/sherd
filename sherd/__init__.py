@@ -4,9 +4,6 @@ import sys
 import shutil
 
 SHERD_SOURCE_DIR = os.path.dirname(__file__)
-mirrors = []
-source_dir = ""
-output_dir = ""
 
 def write_file(path, contents):
     try:
@@ -53,15 +50,16 @@ class Generator(object):
     def write_gateway(self):
         gateway_html = read_template("gateway.html").format(
             comma_separated_mirrors=",\n                ".join(
-                    '"%s"' % m for m in mirrors
+                    '"%s"' % m for m in self.mirrors
                 ),
-            mirror_li_links="\n".join("<li><a href='{0}/sherd/'>{0}/sherd/</a>".format(
-                    mirror
-                ) for mirror in mirrors),
+            mirror_li_links="\n".join(
+                "<li><a href='{0}/sherd/'>{0}/sherd/</a>".format(mirror) 
+                for mirror in self.mirrors),
         )
         write_file(os.path.join(self.output_dir, "index.html"), gateway_html)
 
     def generate_site(self):
+        # Copy over all files; create javascript proxies
         for root, dirs, files in os.walk(self.source_dir):
             for name in files:
                 path = os.path.join(root, name)
@@ -77,16 +75,5 @@ class Generator(object):
                 os.path.join(SHERD_SOURCE_DIR, "templates", "sherd.js"),
                 os.path.join(self.output_dir)
         )
+        # Write gateway
         self.write_gateway()
-
-if __name__ == "__main__":
-    try:
-        source_dir, output_dir, mirrorfile = sys.argv[1:]
-    except ValueError:
-        print """Usage: 
-%s <input dir> <output dir> <mirror file>
-"""
-    with open(mirrorfile) as fh:
-        for line in fh:
-            mirrors.append(line.strip())
-    Generator(source_dir, output_dir, mirrors).generate_site()
